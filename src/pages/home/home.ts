@@ -73,14 +73,35 @@ export class HomePage {
     }
   ];
 
+  private currentPosition: number;
+
   constructor(public navCtrl: NavController) {
 
   }
 
   //Son aléatoire d'un animal
   randomAnimalSound() {
-    let pos = Math.floor(Math.random() * this.animals.length);
+    let pos;
+    if (!this.currentPosition) {
+      pos = Math.floor(Math.random() * this.animals.length);
+    } else {
+      pos = this.currentPosition;
+    }
     return pos;
+  }
+
+  playDaSound() {
+    //Choix d'un animal
+    this.currentPosition = this.randomAnimalSound();
+    let choosenAnimal = this.animals[this.currentPosition];
+
+    //Chargement du son
+    let audio = new Audio;
+    audio.src = 'assets' + choosenAnimal.file;
+    audio.load();
+
+    //Lecture du son
+    audio.play();
   }
 
 }
