@@ -77,4 +77,10 @@ export class HomePage {
 
   }
 
+  //Son aléatoire d'un animal
+  randomAnimalSound() {
+    let pos = Math.floor(Math.random() * this.animals.length);
+    return pos;
+  }
+
 }
