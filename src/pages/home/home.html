@@ -8,25 +8,20 @@
 
 <ion-content padding>
   <h2>Cliquez sur le bon animal</h2>
-  <ion-grid>
-    <ion-row>
-      <ion-col><img src="/assets/imgs/animals/bird-icon.png"></ion-col>
-      <ion-col><img src="/assets/imgs/animals/black-cat-icon.png"></ion-col>
-      <ion-col><img src="/assets/imgs/animals/cow-icon.png"></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col><img src="/assets/imgs/animals/dolphin-icon.png"></ion-col>
-      <ion-col><img src="/assets/imgs/animals/donkey-icon.png"></ion-col>
-      <ion-col><img src="/assets/imgs/animals/frog-icon.png"></ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col><img src="/assets/imgs/animals/horse-icon.png"></ion-col>
-      <ion-col><img src="/assets/imgs/animals/puppy-icon.png"></ion-col>
-      <ion-col><img src="/assets/imgs/animals/pig-icon.png"></ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-list>
+    <ion-item-group reorder="true" (ionItemReorder)="$event.applyTo(animals)">
+      <ion-item *ngFor="let animal of animals, let pos=index">
+        <ion-thumbnail item-left (click)="guess(pos)">
+          <img src="assets/{{ animal.image }}">
+        </ion-thumbnail>
+        <h2>{{ animal.title }}</h2>
+        <p>{{ animal.desc }}</p>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
 
 <ion-footer>
+  <p class="message">{{ result }}</p>
   <button ion-button full (click)="playDaSound()">Jouer un son</button>
 </ion-footer>
