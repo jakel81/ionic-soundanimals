@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -74,10 +74,9 @@ export class HomePage {
   ];
 
   private currentAnimal;
-  public result: string;
   public showReorder = false;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, public toastCtrl: ToastController) {
 
   }
 
@@ -95,8 +94,6 @@ export class HomePage {
   }
 
   playDaSound() {
-    this.result = "";
-
     //Choix d'un animal
     this.currentAnimal = this.randomAnimalSound();
 
@@ -121,11 +118,19 @@ export class HomePage {
     if (this.currentAnimal) {
       //est ce que l'on a choisi le bon animal
       if (animalName == this.currentAnimal.title) {
-        this.result = "Gagné";
+        this.toastCtrl.create({
+          message: "Gagné",
+          duration: 2000,
+          position: 'bottom'
+        }).present();
         //Réinitialisation du choix pour avoir un autre son
         this.currentAnimal = null;
       } else {
-        this.result = "Perdu";
+        this.toastCtrl.create({
+          message: "Perdu",
+          duration: 2000,
+          position: 'bottom'
+        }).present();
       }
     }
   }
